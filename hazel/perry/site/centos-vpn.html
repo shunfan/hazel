@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+  <head>
+  	<meta charset="utf-8">
+  	<title>CentOS 6.2 搭建PPTP VPN</title>
+  </head>
+  <body>
+  	<h1>CentOS 6.2 搭建PPTP VPN</h1>
+  	<p>Published at November 01, 2012</p>
+  	<p>近日购买了Linode的VPS，安装了CentOS 6.2系统，配置了LAMP之后，就准备搭建VPN了。</p>
+<p>网上的教程鱼龙混杂，一时很难找到比较简便的方式搭建VPN，但是经过辛苦的找寻之后，还是找到了一个比较简单的方法来一键搭建PPTP VPN。<a href="http://www.dreamxyt.net/839.html">经由</a></p>
+<ol>
+<li>
+<p>下载vpn(CentOS6专用)一键安装包</p>
+<pre><code>wget http://www.hi-vps.com/shell/vpn_centos6.sh
+</code></pre>
+</li>
+<li>
+<p>运行一键安装包</p>
+<pre><code>bash vpn_centos6.sh
+</code></pre>
+</li>
+<li>
+<p>初始安装</p>
+<pre><code>1
+</code></pre>
+</li>
+</ol>
+<p>最后会出现一个用户名为vpn的账号，密码是随机的。</p>
+<p>想要修复VPN或是新增账号，可以使用刚刚的第二步，分别是2和3。</p>
+<p>如果想要修改账号或密码，使用下面的命令：</p>
+<pre><code>vim /etc/ppp/chap-secrets
+</code></pre>
+<p>如果想要查看在线的用户：</p>
+<pre><code>last | grep still | grep ppp
+</code></pre>
+<p>想要看VPN使用情况（所有用户的使用时间）：</p>
+<pre><code>last
+</code></pre>
+<p>就这样了。</p>
+  </body>
+</html>
