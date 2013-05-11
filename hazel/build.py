@@ -31,6 +31,10 @@ def path_to_directory(directory):
     return os.path.join(g.config['path'], directory)
 
 
+def path_to_template():
+    return os.path.join(g.config['path'], 'templates', g.config['template'])
+
+
 def read_post(filename):
     post = Post()
     with codecs.open(path_to_file('posts', filename), mode='r', encoding='utf-8') as f:
@@ -48,7 +52,7 @@ def read_post(filename):
                     post.date = datetime.date(int(date[0]), int(date[1]), int(date[2])).strftime('%B %d, %Y')
                     puts(colored.red('Date is not exact proper in file %s, but it\'s ok.' % filename))
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
-                env = Environment(loader=FileSystemLoader(path_to_directory('templates')))
+                env = Environment(loader=FileSystemLoader(path_to_template()))
                 template = env.get_template('post.html')
                 post.html = template.render(title=post.title, date=post.date, content=post.content)
                 break
