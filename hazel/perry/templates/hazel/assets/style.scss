@@ -2,7 +2,7 @@
 	font-family: 'Roboto Slab', serif;
 }
 
-@mixin ubuntu {
+@mixin droid {
 	font-family: 'Droid Serif', sans-serif;
 }
 
@@ -19,37 +19,57 @@
 }
 
 body {
-	background-color: #C2C2C2;
+	max-width: 618px;
+	margin: auto;
+	@include droid;
+	background-color: #dbdbdb;
 }
 
 p {
-	@include ubuntu;
 	color: #141414;
 	font-size: 17px;
 	line-height: 24px;
 	text-shadow: 1px 1px 0 #FFFFFF;
 }
 
-h1 {
+h1, h2, h3, h4, h5, h6 {
 	@include roboto;
 	color: #141414;
 }
 
+a {
+	color: #6296cb;
+	text-decoration: none;
+}
+
+#header {
+	margin-top: 20px;
+}
+
 #main {
-	margin: 0;
-	padding: 61.8px;
 	.content {
-		max-width: 618px;
-		margin: 30px auto 0 auto;
-		padding: 5px 20px;
+		margin: 20px 0;
+		padding: 5px 20px 20px 20px;
 		background-color: #FFFFFF;
 		@include radius(4px);
 		@include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
+		word-break: break-all;
 		img {
 			max-width: 100%;
 		}
 		.published {
+			@include droid;
 			color: #8F8F8F;
 		}
 	}
+}
+
+#footer {
+	margin: 20px 0;
+	color: #8F8F8F;
+}
+
+.archive-title {
+	margin: 5px 0;
+	font-size: 19px;
 }
