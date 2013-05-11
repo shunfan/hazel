@@ -26,5 +26,7 @@ h1 {
     -webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1); }
+    #main .content img {
+      max-width: 100%; }
     #main .content .published {
       color: #8F8F8F; }

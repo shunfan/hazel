@@ -45,6 +45,9 @@ h1 {
 		background-color: #FFFFFF;
 		@include radius(4px);
 		@include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
+		img {
+			max-width: 100%;
+		}
 		.published {
 			color: #8F8F8F;
 		}
