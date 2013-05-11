@@ -1,14 +1,17 @@
 # coding=utf-8
+
 import os
 import re
 import time
 import yaml
 import codecs
-import logging
 import datetime
 import markdown
 
+from hazel.utils import ObjectDict
+from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
+
 
 class Post:
     def __init__(self):
@@ -17,16 +20,15 @@ class Post:
 
 def load_yaml():
     with open('config.yaml', 'r') as f:
-        config = yaml.load(f.read())
-    return config
+        g.config = yaml.load(f.read())
 
 
 def path_to_file(directory, filename):
-    return os.path.join(config['path'], directory, filename)
+    return os.path.join(g.config['path'], directory, filename)
 
 
 def path_to_directory(directory):
-    return os.path.join(config['path'], directory)
+    return os.path.join(g.config['path'], directory)
 
 
 def read_post(filename):
@@ -44,7 +46,7 @@ def read_post(filename):
                 except:
                     date = post.yaml['date'].split('-')
                     post.date = datetime.date(int(date[0]), int(date[1]), int(date[2])).strftime('%B %d, %Y')
-                    logging.warning('Date is not exact proper in file %s.' % filename)
+                    puts(colored.red('Date is not exact proper in file %s, but it\'s ok.' % filename))
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 env = Environment(loader=FileSystemLoader(path_to_directory('templates')))
                 template = env.get_template('post.html')
@@ -56,7 +58,17 @@ def read_post(filename):
 def read_posts():
     pattern = re.compile('.+\.md$', re.I)
     files = [f for f in os.listdir(path_to_directory('posts')) if pattern.match(f)]
-    return files
+    if files:
+        for f in files:
+            post = read_post(f)
+            try:
+                write(re.split('\.+', f)[0], post.html)
+                puts('File %s is read successfully.' % f)
+            except:
+                puts(colored.yellow('File %s is not concord with the style of hazel document.' % f))
+        puts(colored.green('Well Done! Buidng process cost %.3fs in total.' % (time.time() - g.time)))
+    else:
+        puts(colored.red('No files in the post directory.'))
 
 
 def write(filename, content):
@@ -64,15 +76,10 @@ def write(filename, content):
         f.write(content)
 
 def build():
-    files = read_posts()
-    if files:
-        for f in files:
-            post = read_post(f)
-            write(re.split('\.+', f)[0], post.html)
-    else:
-        logging.warning('No files in the post directory.')
+    g.time = time.time()
+    load_yaml()
+    read_posts()
 
-config = load_yaml()
-initial_time = time.time()
+
+g = ObjectDict()
 build()
-logging.info('Buidng process cost %.3fs in total.' % (time.time() - initial_time))
