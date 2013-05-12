@@ -1,0 +1,13 @@
+Code is poetry.
+
+0.1.8
+- Support CLI
+
+0.1.3
+- Add requirements.txt
+- Support travis for tests
+- Global arguments in template
+
+0.1.0
+- Birthday for hazel
+- Basic functions
