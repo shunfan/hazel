@@ -23,7 +23,7 @@ setup(
     classifiers=[
         'Development Status :: 1 - Planning',
         'Environment :: Console',
-        'License :: OSI Approved :: MIT Licenseh',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: MacOS',
         'Operating System :: POSIX',
         'Operating System :: POSIX :: Linux',
