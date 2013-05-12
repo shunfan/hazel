@@ -19,7 +19,7 @@ class Post(ObjectDict):
 
 
 def load_yaml():
-    with open('config.yaml', 'r') as f:
+    with open('config.yml', 'r') as f:
         g.config = yaml.load(f.read())
 
 
