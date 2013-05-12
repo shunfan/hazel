@@ -5,7 +5,7 @@ import codecs
 
 
 class ObjectDict(dict):
-	# Copied from the source code of tornado
+    # Copied from the source code of tornado
     def __getattr__(self, name):
         try:
             return self[name]
