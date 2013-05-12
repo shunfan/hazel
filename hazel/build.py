@@ -40,7 +40,23 @@ def load_jinja():
     g.template = Environment(loader=FileSystemLoader(g.template))
     g.template.globals['site_name'] = g.config['site_name']
 
-def read_post(filename):
+
+def handle_posts():
+    g.archive = []
+    pattern = re.compile('.+\.md$', re.I)
+    posts = [p for p in os.listdir(g.posts) if pattern.match(p)]
+    if posts:
+        for p in posts:
+            handle_post(p)
+        try:
+            g.archive = sorted(g.archive, key=itemgetter('date'), reverse=True)
+        except:
+            puts(colored.red('Archive can not be sorted, please check whether the date of post is right.'))
+    else:
+        puts(colored.red('No posts in the posts directory.'))
+
+
+def handle_post(filename):
     post = Post()
     puts('Reading %s now...' % filename)
     with codecs.open(path_to_file(g.posts, filename), mode='r', encoding='utf-8') as f:
@@ -81,21 +97,6 @@ def read_post(filename):
         puts(colored.red('%s could not be rendered.' % filename))
 
 
-def read_posts():
-    g.archive = []
-    pattern = re.compile('.+\.md$', re.I)
-    posts = [p for p in os.listdir(g.posts) if pattern.match(p)]
-    if posts:
-        for p in posts:
-            read_post(p)
-        try:
-            g.archive = sorted(g.archive, key=itemgetter('date'), reverse=True)
-        except:
-            puts(colored.red('Archive can not be sorted, please check whether the date of post is right.'))
-    else:
-        puts(colored.red('No posts in the posts directory.'))
-
-
 def build_index():
     html = render_template('index.html', posts=g.archive[:g.config['index_post']], config=g.config)
     write(g.site, 'index', html)
@@ -113,7 +114,7 @@ def generate():
         load_yaml()
         load_path()
         load_jinja()
-        read_posts()
+        handle_posts()
         build_index()
         build_archive()
         copy_assets()
