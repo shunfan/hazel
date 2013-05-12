@@ -54,8 +54,14 @@ def read_post(filename):
                 post.title = meta['title']
                 post.slug = re.split('\.+', filename)[0]
                 post.date = meta['date']
-                if type(post.date) is date:
+
+                if type(post.date) is datetime:
+                    pass
+                elif type(post.date) is date:
                     post.date = datetime.combine(post.date, time(0, 0))
+                else:
+                    puts(colored.red('File %s has wrong date format.' % filename))
+
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
                 with indent(2, quote='>'):
