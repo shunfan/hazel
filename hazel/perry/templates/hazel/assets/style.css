@@ -18,12 +18,20 @@ a {
   color: #6296cb;
   text-decoration: none; }
 
+img {
+  max-width: 100%; }
+
+pre {
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  overflow: auto; }
+
 #header {
   margin-top: 20px; }
 
 #main .content {
   margin: 20px 0;
-  padding: 5px 20px 20px 20px;
+  padding: 10px 20px;
   background-color: #FFFFFF;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -32,8 +40,6 @@ a {
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
   word-break: break-all; }
-  #main .content img {
-    max-width: 100%; }
   #main .content .published {
     font-family: 'Droid Serif', sans-serif;
     color: #8F8F8F; }

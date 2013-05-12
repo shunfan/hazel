@@ -1,3 +1,6 @@
 path: perry
 template: hazel
 index_post: 3
+
+site_name: 杜顺帆的个人博客
+date_format: "%B %d, %Y"
