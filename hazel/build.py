@@ -76,7 +76,7 @@ def handle_post(filename):
                 elif type(post.date) is date:
                     post.date = datetime.combine(post.date, time(0, 0))
                 else:
-                    puts(colored.red('File %s has wrong date format.' % filename))
+                    puts(colored.yellow('File %s has wrong date format.' % filename))
 
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
@@ -120,4 +120,4 @@ def generate():
         copy_assets()
         puts(colored.green('Complete.'))
     except:
-        puts(colored.red('Loaded fail, please check if all files are in the directory.'))
+        puts(colored.red('Generated fail, please check if all files are in the directory.'))
