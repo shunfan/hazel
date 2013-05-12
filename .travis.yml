@@ -7,5 +7,4 @@ install:
   - pip install -r requirements.txt --use-mirrors
 script:
   - cd test
-  - python test.py
   - hazel generate
