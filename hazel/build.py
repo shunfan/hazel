@@ -119,4 +119,4 @@ def build():
         copy_assets()
         puts(colored.green('Complete.'))
     except:
-        puts(colored.red('Cannot load anything properly, please check if you are in the right directory.'))
+        puts(colored.red('Loaded fail, please check if all files are in the directory.'))
