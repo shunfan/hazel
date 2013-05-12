@@ -103,14 +103,14 @@ def copy_assets():
     shutil.copytree(g.template_assets, g.site_assets)
 
 def build():
-    load_yaml()
-    load_path()
-    load_jinja()
-    read_posts()
-    build_index()
-    build_archive()
-    copy_assets()
-    puts(colored.green('Complete! Buidng process cost %.3fs in total.'))
-
-
-build()
+    try:
+        load_yaml()
+        load_path()
+        load_jinja()
+        read_posts()
+        build_index()
+        build_archive()
+        copy_assets()
+        puts(colored.green('Complete.'))
+    except:
+        puts(colored.red('Cannot load anything properly, please check if you are in the right directory.'))
