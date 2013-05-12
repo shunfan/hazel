@@ -108,7 +108,7 @@ def build_archive():
 def copy_assets():
     shutil.copytree(g.template_assets, g.site_assets)
 
-def build():
+def generate():
     try:
         load_yaml()
         load_path()
