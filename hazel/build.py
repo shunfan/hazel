@@ -11,7 +11,7 @@ from operator import itemgetter
 from datetime import datetime, date, time
 from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
-from hazel.load import load_yaml, load_path
+from hazel.load import load_config, load_path
 from hazel.utils import ObjectDict, path_to_file, render_template, \
                         force_mkdir, write, g
 
@@ -93,7 +93,7 @@ def copy_assets():
 
 
 def new_post(filename):
-    load_yaml()
+    load_config()
     load_path()
     initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now()
     write(g.posts, filename + '.md', initial_content)
@@ -101,7 +101,7 @@ def new_post(filename):
 
 def generate():
     try:
-        load_yaml()
+        load_config()
         load_path()
         load_jinja()
         reset()
