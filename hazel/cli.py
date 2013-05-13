@@ -1,15 +1,25 @@
 # coding=utf-8
-
-"""Usage: hazel <command>
+"""
+Usage: hazel init...
+       hazel generate
+       hazel write <title>
 
 Options: -h, --help
 
 """
 from docopt import docopt
-from hazel.build import generate
+from hazel.config import init
+from hazel.build import new_post, generate
 
-arguments = docopt(__doc__)
+args = docopt(__doc__)
 
 def main():
-    if arguments['<command>'] == 'generate':
+
+    if args['generate']:
         generate()
+
+    if args['init']:
+        init()
+
+    if args['write']:
+        new_post(args['<title>'])
