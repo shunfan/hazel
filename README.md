@@ -1,7 +1,7 @@
 hazel
 =====
 
-Hazel is a capsule static site generator in Python
+Hazel is a capsule static blog generator in Python
 
 Status
 ------
