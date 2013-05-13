@@ -64,19 +64,25 @@ def handle_post(filename):
                 elif type(post.date) is date:
                     post.date = datetime.combine(post.date, time(0, 0))
                 else:
-                    puts(colored.yellow('File %s has wrong date format.' % filename))
+                    puts(colored.yellow('Post %s has wrong date format.' % filename))
 
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
                 with indent(2, quote='>'):
                     puts('read successfully.')
                 break
-    html = render_template('post.html', post=post)
-    with indent(2, quote='>'):
-        puts('rendered successfully.')
-    write(g.site, re.split('\.+', filename)[0] + '.html', html)
-    with indent(2, quote='>'):
-        puts('written successfully.')
+    try:
+        html = render_template('post.html', post=post)
+        with indent(2, quote='>'):
+            puts('rendered successfully.')
+        try:
+            write(g.site, re.split('\.+', filename)[0] + '.html', html)
+            with indent(2, quote='>'):
+                puts('written successfully.')
+        except:
+            puts(colored.red('%s could not be written.' % filename))
+    except:
+        puts(colored.red('%s could not be rendered.' % filename))
 
 
 def build_index():
@@ -93,10 +99,14 @@ def copy_assets():
 
 
 def new_post(filename):
-    load_config()
-    load_path()
-    initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now()
-    write(g.posts, filename + '.md', initial_content)
+    try:
+        load_config()
+        load_path()
+        initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now()
+        write(g.posts, filename + '.md', initial_content)
+        puts(colored.green('New post is written successfully.'))
+    except:
+        puts(colored.red('Post cannot be written.'))
 
 
 def generate():
