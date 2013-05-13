@@ -1,5 +1,5 @@
 # coding=utf-8
-
+from __future__ import with_statement
 import os
 import re
 import yaml
@@ -11,34 +11,22 @@ from operator import itemgetter
 from datetime import datetime, date, time
 from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
-from hazel.utils import ObjectDict, path_to_file, render_template, write, g
+from hazel.load import load_yaml, load_path
+from hazel.utils import ObjectDict, path_to_file, render_template, \
+                        force_mkdir, write, g
 
 
 class Post(ObjectDict):
     pass
 
 
-def load_yaml():
-    with open('config.yml', 'r') as f:
-        g.config = yaml.load(f.read())
-
-
-def load_path():
-    g.posts = os.path.join(g.config['path'], 'posts')
-    g.template = os.path.join(g.config['path'], 'templates', g.config['template'])
-    g.template_assets = os.path.join(g.template, 'assets')
-    g.site = os.path.join(g.config['path'], 'site')
-    g.site_assets = os.path.join(g.site, 'assets')
-    if os.path.exists(g.site):
-        shutil.rmtree(g.site)
-        os.mkdir(g.site)
-    else:
-        os.mkdir(g.site)
-
-
 def load_jinja():
     g.template = Environment(loader=FileSystemLoader(g.template))
     g.template.globals['site_name'] = g.config['site_name']
+
+
+def reset():
+    force_mkdir(g.site)
 
 
 def handle_posts():
@@ -83,37 +71,40 @@ def handle_post(filename):
                 with indent(2, quote='>'):
                     puts('read successfully.')
                 break
-    try:
-        html = render_template('post.html', post=post, config=g.config)
-        with indent(2, quote='>'):
-            puts('rendered successfully.')
-        try:
-            write(g.site, re.split('\.+', filename)[0], html)
-            with indent(2, quote='>'):
-                puts('written successfully.')
-        except:
-            puts(colored.red('%s could not be written.' % filename))
-    except:
-        puts(colored.red('%s could not be rendered.' % filename))
+    html = render_template('post.html', post=post)
+    with indent(2, quote='>'):
+        puts('rendered successfully.')
+    write(g.site, re.split('\.+', filename)[0] + '.html', html)
+    with indent(2, quote='>'):
+        puts('written successfully.')
 
 
 def build_index():
-    html = render_template('index.html', posts=g.archive[:g.config['index_post']], config=g.config)
-    write(g.site, 'index', html)
+    html = render_template('index.html', posts=g.archive[:g.config['index_post']])
+    write(g.site, 'index.html', html)
 
 
 def build_archive():
-    html = render_template('archive.html', posts=g.archive, config=g.config)
-    write(g.site, 'archive', html)
+    html = render_template('archive.html', posts=g.archive)
+    write(g.site, 'archive.html', html)
 
 def copy_assets():
     shutil.copytree(g.template_assets, g.site_assets)
+
+
+def new_post(filename):
+    load_yaml()
+    load_path()
+    initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now()
+    write(g.posts, filename + '.md', initial_content)
+
 
 def generate():
     try:
         load_yaml()
         load_path()
         load_jinja()
+        reset()
         handle_posts()
         build_index()
         build_archive()
