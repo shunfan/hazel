@@ -8,6 +8,7 @@ Options: -h, --help
 
 """
 from docopt import docopt
+
 from hazel.config import init
 from hazel.build import new_post, generate
 
