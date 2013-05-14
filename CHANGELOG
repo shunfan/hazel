@@ -1,5 +1,11 @@
 Code is poetry.
 
+0.3.1
+- Support installation by pip
+- Personal date format
+- Default config file for global use
+- Config file in template for global string in jinja.
+
 0.3.0 (Pre-Alpha)
 - Completely support for command lines: hazel init/write/generate
 - More comprehensive codes and functions
