@@ -3,7 +3,7 @@ python:
   - 2.6
   - 2.7
 install:
-  - pip hazel install
+  - pip install hazel
 script:
   - mkdir test
   - cd test
