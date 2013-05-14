@@ -1,4 +1,10 @@
 # coding=utf-8
+import sys
+
+extra = {}
+if sys.version_info >= (3,):
+    extra['use_2to3'] = True
+
 from setuptools import setup, find_packages
 
 from hazel import __version__
@@ -32,5 +38,9 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.1',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
     ],
+    **extra
 )
