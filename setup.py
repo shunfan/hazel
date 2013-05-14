@@ -8,7 +8,7 @@ setup(
     version=__version__,
     author='Shunfan Du',
     author_email='i@perry.asia',
-    description='Gorgeous Static Blog System',
+    description='Hazel is a capsule static blog generator in Python',
     license='MIT',
     keywords='static blog markdown',
     url='https://github.com/shunfan/hazel',
