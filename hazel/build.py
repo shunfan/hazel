@@ -39,7 +39,7 @@ def handle_posts():
         for p in posts:
             handle_post(p)
         try:
-            g.archive = sorted(g.archive, key=itemgetter('date'), reverse=True)
+            g.archive = sorted(g.archive, key=itemgetter('standard_date'), reverse=True)
         except:
             puts(colored.red('Archive can not be sorted, please check whether the date of post is right.'))
     else:
@@ -59,21 +59,18 @@ def handle_post(filename):
                 meta = dict((a.lower(), b) for a,b in meta.iteritems())
                 post.title = meta['title']
                 post.slug = re.split('\.+', filename)[0]
-                post.date = meta['date']
+                post.standard_date = meta['date']
 
-                if type(post.date) is datetime:
+                if type(post.standard_date) is datetime:
                     pass
-                elif type(post.date) is date:
-                    post.date = datetime.combine(post.date, time(0, 0))
+                elif type(post.standard_date) is date:
+                    post.standard_date = datetime.combine(post.standard_date, time(0, 0))
                 else:
                     puts(colored.yellow('Post %s has wrong date format.' % filename))
 
+                post.date = post.standard_date.strftime(g.config['date_format'])
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
-
-                # Strftime
-                post.date = post.date.strftime(g.config['date_format'])
-
                 with indent(2, quote='>'):
                     puts('read successfully.')
                 break

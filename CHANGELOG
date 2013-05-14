@@ -1,5 +1,8 @@
 Code is poetry.
 
+0.3.2
+- Order of posts in archive fixed.
+
 0.3.1
 - Support installation by pip
 - Personal date format
