@@ -19,6 +19,7 @@ setup(
         'hazel = hazel.cli:main'
       ],
     },
+    install_requires=open("requirements.txt").readlines(),
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',
