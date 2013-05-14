@@ -4,12 +4,18 @@ import os
 import yaml
 
 from clint.textui import puts, indent, colored
-from hazel.utils import ObjectDict, force_mkdir, g
+
+from hazel.utils import ObjectDict, path_to_file, force_mkdir, g
 
 
 def load_config():
     with open('config.yml', 'r') as f:
         g.config = yaml.load(f.read())
+
+
+def load_template_config():
+    with open(path_to_file(g.template,'config.yml'), 'r') as f:
+        g.template_config = yaml.load(f.read())
 
 
 def load_path():
