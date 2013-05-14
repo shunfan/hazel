@@ -14,7 +14,7 @@ setup(
     version=__version__,
     author='Shunfan Du',
     author_email='i@perry.asia',
-    description='Hazel is a capsule static blog generator in Python',
+    description='hazel: a capsule static blog generator',
     long_description=open('README.rst').read(),
     license='MIT',
     keywords='static blog markdown',
