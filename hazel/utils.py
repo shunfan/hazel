@@ -22,7 +22,7 @@ def path_to_file(directory, filename):
 
 
 def render_template(template, **content):
-    template = g.template.get_template(template)
+    template = g.env.get_template(template)
     return template.render(content)
 
 
