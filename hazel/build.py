@@ -11,7 +11,8 @@ from operator import itemgetter
 from datetime import datetime, date, time
 from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
-from hazel.load import load_config, load_path
+
+from hazel.load import load_config, load_template_config, load_path
 from hazel.utils import ObjectDict, path_to_file, render_template, \
                         force_mkdir, write, g
 
@@ -21,8 +22,9 @@ class Post(ObjectDict):
 
 
 def load_jinja():
-    g.template = Environment(loader=FileSystemLoader(g.template))
-    g.template.globals['site_name'] = g.config['site_name']
+    g.env = Environment(loader=FileSystemLoader(g.template))
+    for k,v in g.template_config.iteritems():
+        g.env.globals[k] = v
 
 
 def reset():
@@ -68,6 +70,10 @@ def handle_post(filename):
 
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
+
+                # Strftime
+                post.date = post.date.strftime(g.config['date_format'])
+
                 with indent(2, quote='>'):
                     puts('read successfully.')
                 break
@@ -102,7 +108,7 @@ def new_post(filename):
     try:
         load_config()
         load_path()
-        initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now()
+        initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         write(g.posts, filename + '.md', initial_content)
         puts(colored.green('New post is written successfully.'))
     except:
@@ -113,6 +119,7 @@ def generate():
     try:
         load_config()
         load_path()
+        load_template_config()
         load_jinja()
         reset()
         handle_posts()
