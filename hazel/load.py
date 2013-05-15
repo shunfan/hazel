@@ -5,7 +5,7 @@ import yaml
 
 from clint.textui import puts, indent, colored
 
-from hazel.utils import ObjectDict, path_to_file, force_mkdir, g
+from hazel.utils import ObjectDict, get_path, force_mkdir, g, path
 
 
 def load_config():
@@ -14,13 +14,13 @@ def load_config():
 
 
 def load_template_config():
-    with open(path_to_file(g.template,'config.yml'), 'r') as f:
+    with open(get_path(path.template,'config.yml'), 'r') as f:
         g.template_config = yaml.load(f.read())
 
 
 def load_path():
-    g.posts = 'posts'
-    g.template = os.path.join('templates', g.config['template'])
-    g.template_assets = os.path.join(g.template, 'assets')
-    g.site = 'site'
-    g.site_assets = os.path.join(g.site, 'assets')
+    path.posts = 'posts'
+    path.template = get_path('templates', g.config['template'])
+    path.template_assets = get_path(path.template, 'assets')
+    path.site = 'site'
+    path.site_assets = get_path(path.site, 'assets')
