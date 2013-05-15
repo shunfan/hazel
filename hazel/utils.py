@@ -17,8 +17,8 @@ class ObjectDict(dict):
         self[name] = value
 
 
-def path_to_file(directory, filename):
-    return os.path.join(directory, filename)
+def get_path(*path):
+    return os.path.join(*path)
 
 
 def render_template(template, **content):
@@ -45,7 +45,8 @@ def create(file_path, content):
 
 
 def write(directory, filename, content):
-    create(path_to_file(directory, filename), content)
+    create(get_path(directory, filename), content)
 
 
 g = ObjectDict
+path = ObjectDict()
