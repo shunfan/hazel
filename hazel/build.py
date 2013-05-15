@@ -13,33 +13,29 @@ from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
 
 from hazel.load import load_config, load_template_config, load_path
-from hazel.utils import ObjectDict, path_to_file, render_template, \
-                        force_mkdir, write, g
-
-
-class Post(ObjectDict):
-    pass
+from hazel.utils import ObjectDict, get_path, render_template, \
+                        force_mkdir, write, g, path
 
 
 def load_jinja():
-    g.env = Environment(loader=FileSystemLoader(g.template))
+    g.env = Environment(loader=FileSystemLoader(path.template))
     for k,v in g.template_config.iteritems():
         g.env.globals[k] = v
 
 
 def reset():
-    force_mkdir(g.site)
+    force_mkdir(path.site)
 
 
 def handle_posts():
     g.archive = []
     pattern = re.compile('.+\.md$', re.I)
-    posts = [p for p in os.listdir(g.posts) if pattern.match(p)]
+    posts = [p for p in os.listdir(path.posts) if pattern.match(p)]
     if posts:
         for p in posts:
             handle_post(p)
         try:
-            g.archive = sorted(g.archive, key=itemgetter('standard_date'), reverse=True)
+            g.archive = sorted(g.archive, reverse=True)
         except:
             puts(colored.red('Archive can not be sorted, please check whether the date of post is right.'))
     else:
@@ -47,28 +43,32 @@ def handle_posts():
 
 
 def handle_post(filename):
-    post = Post()
     puts('Reading %s now...' % filename)
-    with codecs.open(path_to_file(g.posts, filename), mode='r', encoding='utf-8') as f:
+    with codecs.open(get_path(path.posts, filename), mode='r', encoding='utf-8') as f:
         lines = f.readlines()
         if lines[0].startswith('---'):
             lines.pop(0)
         for l, line in enumerate(lines):
             if line.startswith('---') or line.startswith('\n'):
-                meta = yaml.load(''.join(lines[:l]))
-                meta = dict((a.lower(), b) for a,b in meta.iteritems())
-                post.title = meta['title']
+                """
+                post.title: title of the post
+                post.slug: url of the post, same as the filename
+                post.date: date with personal date format
+                post.standard_date: date used to order the posts
+                post.content: html content of the post
+                """
+                post = ObjectDict(dict((a.lower(), b) for a,b in yaml.load(''.join(lines[:l])).iteritems()))
                 post.slug = re.split('\.+', filename)[0]
-                post.standard_date = meta['date']
+                post.standard_date = post.date
 
-                if type(post.standard_date) is datetime:
+                if type(post.date) is datetime:
                     pass
-                elif type(post.standard_date) is date:
-                    post.standard_date = datetime.combine(post.standard_date, time(0, 0))
+                elif type(post.date) is date:
+                    post.date = datetime.combine(post.date, time(0, 0))
                 else:
                     puts(colored.yellow('Post %s has wrong date format.' % filename))
 
-                post.date = post.standard_date.strftime(g.config['date_format'])
+                post.date = post.date.strftime(g.config['date_format'])
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
                 with indent(2, quote='>'):
@@ -79,7 +79,7 @@ def handle_post(filename):
         with indent(2, quote='>'):
             puts('rendered successfully.')
         try:
-            write(g.site, re.split('\.+', filename)[0] + '.html', html)
+            write(path.site, re.split('\.+', filename)[0] + '.html', html)
             with indent(2, quote='>'):
                 puts('written successfully.')
         except:
@@ -90,15 +90,15 @@ def handle_post(filename):
 
 def build_index():
     html = render_template('index.html', posts=g.archive[:g.config['index_post']])
-    write(g.site, 'index.html', html)
+    write(path.site, 'index.html', html)
 
 
 def build_archive():
     html = render_template('archive.html', posts=g.archive)
-    write(g.site, 'archive.html', html)
+    write(path.site, 'archive.html', html)
 
 def copy_assets():
-    shutil.copytree(g.template_assets, g.site_assets)
+    shutil.copytree(path.template_assets, path.site_assets)
 
 
 def new_post(filename):
@@ -106,7 +106,7 @@ def new_post(filename):
         load_config()
         load_path()
         initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        write(g.posts, filename + '.md', initial_content)
+        write(path.posts, filename + '.md', initial_content)
         puts(colored.green('New post is written successfully.'))
     except:
         puts(colored.red('Post cannot be written.'))
