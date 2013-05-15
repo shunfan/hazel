@@ -16,24 +16,26 @@ Status
 
 Pre-Alpha
 
-Installation
-------------
+Get start
+---------
+
+Installation using pip::
 
     pip install hazel
 
-Initiate your blog
-------------------
+Target a directory::
 
     cd your-blog-path
+
+Initiate your blog::
+
     hazel init
 
-Write your first blog post
---------------------------
+Write your first blog post::
 
     hazel write my-first-post
 
-Generate your blog
-------------------
+Generate your blog::
 
     hazel generate
 
