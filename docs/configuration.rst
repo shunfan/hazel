@@ -20,7 +20,7 @@ Template configuration::
 
 To personalize your blog style, template configuration is easily handled.
 
-Example:
+Example::
 
     index_post: 3
     date_format: '%B %d, %Y'
