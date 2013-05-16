@@ -43,4 +43,6 @@ After writing, let's generate the blog::
 
     hazel generate
 
-Overall, the blog has been built. What you gonna do next is :ref:`configuration`.
+Overall, the blog has been built. What you gonna do next is configuration_.
+
+.. _configuration: https://hazel.readthedocs.org/en/latest/configuration.html
