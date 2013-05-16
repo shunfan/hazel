@@ -21,6 +21,12 @@ def load_jinja():
     g.env = Environment(loader=FileSystemLoader(path.template))
     for k,v in g.template_config.iteritems():
         g.env.globals[k] = v
+    """
+    site.name: the name of the site
+    site.url: blog.example.com
+    site.author: the author of the blog
+    """
+    g.env.globals['site'] = ObjectDict(g.config)
 
 
 def reset():
@@ -68,7 +74,7 @@ def handle_post(filename):
                 else:
                     puts(colored.yellow('Post %s has wrong date format.' % filename))
 
-                post.date = post.date.strftime(g.config['date_format'])
+                post.date = post.date.strftime(g.template_config['date_format'])
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
                 with indent(2, quote='>'):
@@ -89,7 +95,7 @@ def handle_post(filename):
 
 
 def build_index():
-    html = render_template('index.html', posts=g.archive[:g.config['index_post']])
+    html = render_template('index.html', posts=g.archive[:g.template_config['index_post']])
     write(path.site, 'index.html', html)
 
 
