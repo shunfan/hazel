@@ -6,6 +6,8 @@ hazel
 
 Hazel is a capsule static blog generator in Python
 
+Comprehensive documentation: https://hazel.readthedocs.org/en/latest/
+
 License
 -------
 
@@ -16,8 +18,8 @@ Status
 
 Pre-Alpha
 
-Get start
----------
+Getting Start
+-------------
 
 Installation using pip::
 
