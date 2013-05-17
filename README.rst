@@ -16,7 +16,7 @@ MIT.
 Status
 ------
 
-Pre-Alpha
+Alpha
 
 Getting Start
 -------------

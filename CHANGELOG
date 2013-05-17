@@ -1,5 +1,10 @@
 Code is poetry.
 
+0.3.8 (Alpha)
+- All template pages will be built and rendered
+- Feed example and support
+- Fix the issue of listing
+
 0.3.5
 - Start to build comprehensive documentation
 - Redefine the use of distinctive config files
