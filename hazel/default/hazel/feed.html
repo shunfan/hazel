@@ -10,7 +10,7 @@
         <entry>
             {% for post in posts %}
                 <title>{{ post.title }}</title>
-                <link href="http://{{ site.domain }}/posts/{{ post.slug }}" />
+                <link href="http://{{ site.domain }}/post/{{ post.slug }}" />
                 <id>{{ post.slug }}</id>
                 <updated>{{ post.date.strftime('%Y-%m-%dT%H:%M:%SZ') }}</updated>
                 <summary>{{ post.content }}</summary>
