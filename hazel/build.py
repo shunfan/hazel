@@ -32,6 +32,7 @@ def load_jinja():
 
 def reset():
     force_mkdir(path.site)
+    force_mkdir(path.site_post)
 
 
 def handle_posts():
@@ -83,7 +84,7 @@ def handle_post(filename):
         with indent(2, quote='>'):
             puts('rendered successfully.')
         try:
-            write(path.site, re.split('\.+', filename)[0] + '.html', html)
+            write(path.site_post, re.split('\.+', filename)[0] + '.html', html)
             with indent(2, quote='>'):
                 puts('written successfully.')
         except:

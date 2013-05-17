@@ -23,4 +23,5 @@ def load_path():
     path.template = get_path('templates', g.config['template'])
     path.template_assets = get_path(path.template, 'assets')
     path.site = 'site'
+    path.site_post = get_path(path.site, 'post')
     path.site_assets = get_path(path.site, 'assets')
