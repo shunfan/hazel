@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
         <title>{{ site.title }}</title>
         <subtitle>{{ site.title }}</subtitle>
-        <link href="http://{{ site.domain }}/feed/" rel="self" />
+        <link href="http://{{ site.domain }}/feed" rel="self" />
         <link href="http://{{ site.domain }}/" />
         <id>{{ site.domain }}</id>
         {% if posts %}<updated>{{ posts[0]['date'].strftime('%Y-%m-%dT%H:%M:%SZ')}}</updated>{% endif %}
@@ -10,7 +10,7 @@
         <entry>
             {% for post in posts %}
                 <title>{{ post.title }}</title>
-                <link href="http://{{ site.domain }}/{{ post.slug }}" />
+                <link href="http://{{ site.domain }}/posts/{{ post.slug }}" />
                 <id>{{ post.slug }}</id>
                 <updated>{{ post.date.strftime('%Y-%m-%dT%H:%M:%SZ') }}</updated>
                 <summary>{{ post.content }}</summary>
