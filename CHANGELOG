@@ -1,5 +1,8 @@
 Code is poetry.
 
+0.3.9
+- URL path for the site
+
 0.3.8 (Alpha)
 - All template pages will be built and rendered
 - Feed example and support
