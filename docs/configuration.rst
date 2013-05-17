@@ -10,21 +10,23 @@ In the root of your blog directory, a config.yml is created to configure your bl
 
 A example of the config.yml::
 
-    name: A blog powered by hazel
-    url: blog.example.com
+    # All of them are required
+    title: My blog
+    subtitle: A blog powered by hazel
+    domain: blog.example.com
     author: Myself
     email: me@example.com
     template: hazel
 
-Template configuration::
+Template configuration:
 
 To personalize your blog style, template configuration is easily handled.
 
 Example::
 
+    # All of them are optional
     index_post: 3
     date_format: '%B %d, %Y'
-    # options
     analytics:
     twitter:
 
