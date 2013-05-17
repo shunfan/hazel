@@ -4,7 +4,7 @@
 <div class="content">
     <h1><a href="{{ post.slug }}.html">{{ post.title }}</a></h1>
     <div class="published">
-        Published at {{ post.date }}
+        Published on {{ post.date.strftime(date_format) }}
     </div>
     {{ post.content }}
 </div>
