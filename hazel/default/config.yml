@@ -1,5 +1,6 @@
-name: A blog powered by hazel
-url: blog.example.com
+title: My blog
+subtitle: A blog powered by hazel
+domain: blog.example.com
 author: Myself
 email: me@example.com
 template: hazel

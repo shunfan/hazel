@@ -22,8 +22,8 @@ def load_jinja():
     for k,v in g.template_config.iteritems():
         g.env.globals[k] = v
     """
-    site.name: the name of the site
-    site.url: blog.example.com
+    site.title: the name of the site
+    site.domain: blog.example.com
     site.author: the author of the blog
     site.email: author's email address
     """
@@ -60,7 +60,7 @@ def handle_post(filename):
                 """
                 post.title: title of the post
                 post.slug: url of the post, same as the filename
-                post.date: date with personal date format
+                post.date: standard datetime
                 post.content: html content of the post
                 """
                 post = ObjectDict(dict((a.lower(), b) for a,b in yaml.load(''.join(lines[:l])).iteritems()))
