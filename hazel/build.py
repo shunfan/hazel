@@ -25,6 +25,7 @@ def load_jinja():
     site.name: the name of the site
     site.url: blog.example.com
     site.author: the author of the blog
+    site.email: author's email address
     """
     g.env.globals['site'] = ObjectDict(g.config)
 
@@ -41,7 +42,7 @@ def handle_posts():
         for p in posts:
             handle_post(p)
         try:
-            g.archive = sorted(g.archive, reverse=True)
+            g.archive = sorted(g.archive, key=itemgetter('date'), reverse=True)
         except:
             puts(colored.red('Archive can not be sorted, please check whether the date of post is right.'))
     else:
@@ -60,12 +61,10 @@ def handle_post(filename):
                 post.title: title of the post
                 post.slug: url of the post, same as the filename
                 post.date: date with personal date format
-                post.standard_date: date used to order the posts
                 post.content: html content of the post
                 """
                 post = ObjectDict(dict((a.lower(), b) for a,b in yaml.load(''.join(lines[:l])).iteritems()))
                 post.slug = re.split('\.+', filename)[0]
-                post.standard_date = post.date
 
                 if type(post.date) is datetime:
                     pass
@@ -74,7 +73,6 @@ def handle_post(filename):
                 else:
                     puts(colored.yellow('Post %s has wrong date format.' % filename))
 
-                post.date = post.date.strftime(g.template_config['date_format'])
                 post.content = markdown.markdown(''.join(lines[l + 1:]))
                 g.archive.append(post)
                 with indent(2, quote='>'):
@@ -94,14 +92,18 @@ def handle_post(filename):
         puts(colored.red('%s could not be rendered.' % filename))
 
 
-def build_index():
-    html = render_template('index.html', posts=g.archive[:g.template_config['index_post']])
-    write(path.site, 'index.html', html)
+def handle_pages():
+    pattern = re.compile('.+\.html$', re.I)
+    pages = [p for p in os.listdir(path.template) if pattern.match(p)]
+    for p in pages:
+        handle_page(p)
 
 
-def build_archive():
-    html = render_template('archive.html', posts=g.archive)
-    write(path.site, 'archive.html', html)
+def handle_page(filename):
+    if not filename == 'post.html':
+        html = render_template(filename, posts=g.archive)
+        write(path.site, filename, html)
+
 
 def copy_assets():
     shutil.copytree(path.template_assets, path.site_assets)
@@ -126,8 +128,7 @@ def generate():
         load_jinja()
         reset()
         handle_posts()
-        build_index()
-        build_archive()
+        handle_pages()
         copy_assets()
         puts(colored.green('Complete.'))
     except:
