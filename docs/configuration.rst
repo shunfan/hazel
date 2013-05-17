@@ -18,7 +18,8 @@ A example of the config.yml::
     email: me@example.com
     template: hazel
 
-Template configuration:
+Template Configuration
+----------------------
 
 To personalize your blog style, template configuration is easily handled.
 
