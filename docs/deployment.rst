@@ -1,6 +1,9 @@
 Deployment
 ==========
 
+Rsync
+-----
+
 After `configuring nginx and the general config file`_, rsnyc can be used to deploy your blog.
 
 Deploy::
