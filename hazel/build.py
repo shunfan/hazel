@@ -114,6 +114,7 @@ def copy_assets():
 def new_post(filename):
     try:
         load_config()
+        load_base()
         load_path()
         initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         write(g.path.posts, filename + '.md', initial_content)
