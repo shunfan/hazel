@@ -12,13 +12,13 @@ from datetime import datetime, date, time
 from clint.textui import puts, indent, colored
 from jinja2 import Template, Environment, FileSystemLoader
 
-from hazel.load import load_config, load_template_config, load_path
+from hazel.load import load_config, load_base, load_path, load_template_config
 from hazel.utils import ObjectDict, get_path, render_template, \
-                        force_mkdir, write, g, path
+                        force_mkdir, write, g
 
 
 def load_jinja():
-    g.env = Environment(loader=FileSystemLoader(path.template))
+    g.env = Environment(loader=FileSystemLoader(g.path.template))
     for k,v in g.template_config.iteritems():
         g.env.globals[k] = v
     """
@@ -27,18 +27,18 @@ def load_jinja():
     site.author: the author of the blog
     site.email: author's email address
     """
-    g.env.globals['site'] = ObjectDict(g.config)
+    g.env.globals['site'] = g.config
 
 
 def reset():
-    force_mkdir(path.site)
-    force_mkdir(path.site_post)
+    force_mkdir(g.path.site)
+    force_mkdir(g.path.site_post)
 
 
 def handle_posts():
     g.archive = []
     pattern = re.compile('.+\.md$', re.I)
-    posts = [p for p in os.listdir(path.posts) if pattern.match(p)]
+    posts = [p for p in os.listdir(g.path.posts) if pattern.match(p)]
     if posts:
         for p in posts:
             handle_post(p)
@@ -52,7 +52,7 @@ def handle_posts():
 
 def handle_post(filename):
     puts('Reading %s now...' % filename)
-    with codecs.open(get_path(path.posts, filename), mode='r', encoding='utf-8') as f:
+    with codecs.open(get_path(g.path.posts, filename), mode='r', encoding='utf-8') as f:
         lines = f.readlines()
         if lines[0].startswith('---'):
             lines.pop(0)
@@ -84,7 +84,7 @@ def handle_post(filename):
         with indent(2, quote='>'):
             puts('rendered successfully.')
         try:
-            write(path.site_post, re.split('\.+', filename)[0] + '.html', html)
+            write(g.path.site_post, re.split('\.+', filename)[0] + '.html', html)
             with indent(2, quote='>'):
                 puts('written successfully.')
         except:
@@ -95,7 +95,7 @@ def handle_post(filename):
 
 def handle_pages():
     pattern = re.compile('.+\.html$', re.I)
-    pages = [p for p in os.listdir(path.template) if pattern.match(p)]
+    pages = [p for p in os.listdir(g.path.template) if pattern.match(p)]
     for p in pages:
         handle_page(p)
 
@@ -103,11 +103,12 @@ def handle_pages():
 def handle_page(filename):
     if not filename == 'post.html':
         html = render_template(filename, posts=g.archive)
-        write(path.site, filename, html)
+        write(g.path.site, filename, html)
 
 
 def copy_assets():
-    shutil.copytree(path.template_assets, path.site_assets)
+    shutil.copytree(g.path.template_assets, g.path.site_assets)
+    shutil.copytree(g.path.images, g.path.site_images)
 
 
 def new_post(filename):
@@ -115,7 +116,7 @@ def new_post(filename):
         load_config()
         load_path()
         initial_content = 'title: Your post title\ndate: %s\n\nStart writing here...' % datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        write(path.posts, filename + '.md', initial_content)
+        write(g.path.posts, filename + '.md', initial_content)
         puts(colored.green('New post is written successfully.'))
     except:
         puts(colored.red('Post cannot be written.'))
@@ -124,6 +125,7 @@ def new_post(filename):
 def generate():
     try:
         load_config()
+        load_base()
         load_path()
         load_template_config()
         load_jinja()

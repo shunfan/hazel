@@ -31,6 +31,11 @@ def safe_mkdir(directory):
         os.mkdir(directory)
 
 
+def safe_copy(src, dest):
+    if not os.path.exists(dest):
+        shutil.copyfile(src, dest)
+
+
 def force_mkdir(directory):
     if os.path.exists(directory):
         shutil.rmtree(directory)
@@ -49,4 +54,3 @@ def write(directory, filename, content):
 
 
 g = ObjectDict
-path = ObjectDict()
