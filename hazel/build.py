@@ -14,7 +14,7 @@ from jinja2 import Template, Environment, FileSystemLoader
 
 from hazel.load import load_config, load_base, load_path, load_template_config
 from hazel.utils import ObjectDict, get_path, render_template, \
-                        force_mkdir, write, g
+                        safe_copy, force_mkdir, write, g
 
 
 def load_jinja():
@@ -107,8 +107,8 @@ def handle_page(filename):
 
 
 def copy_assets():
-    shutil.copytree(g.path.template_assets, g.path.site_assets)
-    shutil.copytree(g.path.images, g.path.site_images)
+    safe_copy(g.path.template_assets, g.path.site_assets)
+    safe_copy(g.path.images, g.path.site_images)
 
 
 def new_post(filename):

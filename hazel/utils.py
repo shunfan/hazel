@@ -32,8 +32,12 @@ def safe_mkdir(directory):
 
 
 def safe_copy(src, dest):
-    if not os.path.exists(dest):
-        shutil.copyfile(src, dest)
+    if os.path.exists(src):
+        if not os.path.exists(dest):
+            if os.path.isfile(src):
+                shutil.copyfile(src, dest)
+            elif os.path.isdir(src):
+                shutil.copytree(src, dest)
 
 
 def force_mkdir(directory):
