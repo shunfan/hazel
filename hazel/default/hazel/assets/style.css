@@ -2,17 +2,40 @@ body {
   max-width: 618px;
   margin: auto;
   font-family: 'Droid Serif', sans-serif;
-  background-color: #dbdbdb; }
+  background-color: #dbdbdb;
+  text-shadow: 1px 1px 0 #FFFFFF; }
 
 p {
   color: #141414;
   font-size: 17px;
-  line-height: 24px;
-  text-shadow: 1px 1px 0 #FFFFFF; }
+  line-height: 24px; }
 
 h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
   font-family: 'Roboto Slab', serif;
+  line-height: 20px;
   color: #141414; }
+
+h1, h2, h3 {
+  line-height: 40px; }
+
+h1 {
+  font-size: 31px; }
+
+h2 {
+  font-size: 24px; }
+
+h3 {
+  font-size: 21px; }
+
+h4 {
+  font-size: 18px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  font-size: 12px; }
 
 a {
   color: #6296cb;
@@ -20,6 +43,21 @@ a {
 
 img {
   max-width: 100%; }
+
+ul,
+ol {
+  padding: 0;
+  margin: 0 0 10px 25px;
+  line-height: inherit; }
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-bottom: 0; }
+
+li {
+  line-height: 24px; }
 
 blockquote {
   margin: 0;
@@ -32,7 +70,10 @@ pre {
   overflow: auto; }
 
 hr {
-  border: 1px solid #dbdbdb; }
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #ffffff; }
 
 #header {
   margin-top: 20px; }
