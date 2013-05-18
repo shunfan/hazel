@@ -17,7 +17,7 @@ setup(
     description='hazel: a capsule static blog generator',
     long_description=open('README.rst').read(),
     license='MIT',
-    keywords='static blog markdown',
+    keywords='blog markdown static rsync',
     url='https://github.com/shunfan/hazel',
     packages=find_packages(),
     include_package_data=True,
