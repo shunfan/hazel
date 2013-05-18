@@ -9,7 +9,7 @@ from hazel.utils import g
 
 def rsync():
     try:
-    	load_config()
+        load_config()
         cmd = "rsync -avz site {user}@{host}:{dest}".format(
             user=g.config.user,
             host=g.config.host,
