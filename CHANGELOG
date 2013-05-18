@@ -1,5 +1,9 @@
 Code is poetry.
 
+0.4.3
+- Default template enhanced
+- Nginx 404 Page
+
 0.4.2
 - Deploy using rsync
 

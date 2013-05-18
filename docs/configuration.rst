@@ -52,6 +52,8 @@ Since hazel is a static blog generator, you don't need a web framework like torn
         access_log /path/to/logs/access.log;
         error_log /path/to/logs/error.log;
 
+        error_page   404   /404.html;
+
         if ( $request_uri ~ "/index.html" ) {
             rewrite ^ /$1 permanent;
         }
