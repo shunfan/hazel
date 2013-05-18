@@ -10,3 +10,4 @@ Contents:
 
    getting_started
    configuration
+   deployment
