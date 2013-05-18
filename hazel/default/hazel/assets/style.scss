@@ -1,9 +1,12 @@
+$dark-gray: #8F8F8F;
+$light-gray: #dbdbdb;
+
 @mixin roboto {
-	font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto Slab', serif;
 }
 
 @mixin droid {
-	font-family: 'Droid Serif', sans-serif;
+    font-family: 'Droid Serif', sans-serif;
 }
 
 @mixin radius($radius) {
@@ -19,64 +22,92 @@
 }
 
 body {
-	max-width: 618px;
-	margin: auto;
-	@include droid;
-	background-color: #dbdbdb;
+    max-width: 618px;
+    margin: auto;
+    @include droid;
+    background-color: $light-gray;
 }
 
 p {
-	color: #141414;
-	font-size: 17px;
-	line-height: 24px;
-	text-shadow: 1px 1px 0 #FFFFFF;
+    color: #141414;
+    font-size: 17px;
+    line-height: 24px;
+    text-shadow: 1px 1px 0 #FFFFFF;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	@include roboto;
-	color: #141414;
+    @include roboto;
+    color: #141414;
 }
 
 a {
-	color: #6296cb;
-	text-decoration: none;
+    color: #6296cb;
+    text-decoration: none;
 }
 
 img {
-	max-width: 100%;
+    max-width: 100%;
+}
+
+blockquote {
+    margin: 0;
+    padding-left: 15px;
+    border-left: 5px solid $light-gray;
 }
 
 pre {
-	padding: 10px;
-	border: 1px solid #dbdbdb;
-	overflow: auto;
+    padding: 10px;
+    border: 1px solid $light-gray;
+    overflow: auto;
+}
+
+hr {
+    border: 1px solid $light-gray;
 }
 
 #header {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 #main {
-	.content {
-		margin: 20px 0;
-		padding: 10px 20px;
-		background-color: #FFFFFF;
-		@include radius(4px);
-		@include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
-		word-break: break-all;
-		.published {
-			@include droid;
-			color: #8F8F8F;
-		}
-	}
+    .content {
+        margin: 20px 0;
+        padding: 5px 20px;
+        background-color: #FFFFFF;
+        @include radius(4px);
+        @include box-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
+        word-break: break-all;
+        .published {
+            @include droid;
+            color: $dark-gray;
+        }
+    }
 }
 
 #footer {
-	margin: 20px 0;
-	color: #8F8F8F;
+    margin: 20px 0;
+    color: $dark-gray;
 }
 
 .archive-title {
-	margin: 5px 0;
-	font-size: 19px;
+    margin: 5px 0;
+    font-size: 19px;
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+@media (max-width: 767px) {
+    body {
+        padding: 0 12px 0 12px;
+    }
+}
+
+@media (max-width: 480px) {
+
 }

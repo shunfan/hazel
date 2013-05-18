@@ -21,17 +21,25 @@ a {
 img {
   max-width: 100%; }
 
+blockquote {
+  margin: 0;
+  padding-left: 15px;
+  border-left: 5px solid #dbdbdb; }
+
 pre {
   padding: 10px;
   border: 1px solid #dbdbdb;
   overflow: auto; }
+
+hr {
+  border: 1px solid #dbdbdb; }
 
 #header {
   margin-top: 20px; }
 
 #main .content {
   margin: 20px 0;
-  padding: 10px 20px;
+  padding: 5px 20px;
   background-color: #FFFFFF;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -42,12 +50,16 @@ pre {
   word-break: break-all; }
   #main .content .published {
     font-family: 'Droid Serif', sans-serif;
-    color: #8F8F8F; }
+    color: #8f8f8f; }
 
 #footer {
   margin: 20px 0;
-  color: #8F8F8F; }
+  color: #8f8f8f; }
 
 .archive-title {
   margin: 5px 0;
   font-size: 19px; }
+
+@media (max-width: 767px) {
+  body {
+    padding: 0 12px 0 12px; } }
