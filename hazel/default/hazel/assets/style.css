@@ -3,7 +3,7 @@ body {
   margin: auto;
   font-family: 'Droid Serif', sans-serif;
   background-color: #dbdbdb;
-  text-shadow: 1px 1px 0 #FFFFFF; }
+  text-shadow: 0 1px 0 #FFFFFF; }
 
 p {
   color: #141414;

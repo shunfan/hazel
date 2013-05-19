@@ -26,7 +26,7 @@ body {
     margin: auto;
     @include droid;
     background-color: $light-gray;
-    text-shadow: 1px 1px 0 #FFFFFF;
+    text-shadow: 0 1px 0 #FFFFFF;
 }
 
 p {
