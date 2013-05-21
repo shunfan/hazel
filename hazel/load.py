@@ -32,5 +32,8 @@ def load_path():
 
 
 def load_template_config():
-    with open(get_path(g.path.template,'config.yml'), 'r') as f:
-        g.template_config = ObjectDict(yaml.load(f.read()))
+    try:
+        with open(get_path(g.path.template,'config.yml'), 'r') as f:
+            g.template_config = ObjectDict(yaml.load(f.read()))
+    except:
+        puts(colored.red('The config file in the template is not found, or the template directory doesn\'t exist.'))
