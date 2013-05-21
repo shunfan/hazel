@@ -25,13 +25,13 @@ def default_config():
     safe_copy(default_config_path, get_path(os.getcwd(), 'config.yml'))
 
 def install_default_template():
-    default_template_path = get_path(g.hazel_path, 'default', 'hazel')
+    default_template_path = get_path(g.hazel_path, 'default', 'limestone')
     try:
-        shutil.copytree(default_template_path, get_path(os.getcwd(), 'templates', 'hazel'))
+        shutil.copytree(default_template_path, get_path(os.getcwd(), 'templates', 'limestone'))
         with indent(2, quote='>'):
-            puts('default template was initiated successfully.')
+            puts('default template was installed successfully.')
     except:
-        puts(colored.yellow('Initiate default template fail, check if the default template has been installed.'))
+        puts(colored.yellow('Install default template fail, check if the default template has been installed.'))
 
 def init():
     try:
