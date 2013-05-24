@@ -19,17 +19,17 @@ args = docopt(__doc__)
 
 def main():
 
-  if args['init']:
-    init()
+    if args['init']:
+        init()
 
-  if args['install']:
-    install(args['<template>'])
+    if args['install']:
+        install(args['<template>'])
 
-  if args['write']:
-    new_post(args['<title>'])
+    if args['write']:
+        new_post(args['<title>'])
 
-  if args['generate']:
-    generate()
+    if args['generate']:
+        generate()
 
-  if args['deploy']:
-    rsync()
+    if args['deploy']:
+        rsync()
