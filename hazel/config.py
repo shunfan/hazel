@@ -8,7 +8,7 @@ import fileinput
 from clint.textui import puts, indent, colored
 
 from hazel.load import load_base
-from hazel.utils import get_path, safe_mkdir, safe_copy, g
+from hazel.utils import get_path, safe_mkdir, safe_copy, force_mkdir, g
 
 
 g.hazel_path = os.path.abspath(os.path.dirname(__file__))
@@ -28,30 +28,23 @@ def default_config():
     safe_copy(default_config_path, get_path(os.getcwd(), 'config.yml'))
 
 def install_default_template():
-    default_template_path = get_path(g.hazel_path, 'default', 'limestone')
     try:
-        shutil.copytree(default_template_path, get_path(os.getcwd(), 'templates', 'limestone'))
+        install('limestone')
         with indent(2, quote='>'):
-            puts('default template was installed successfully.')
+            puts('Default template is installed.')
     except:
-        puts(colored.yellow('Install default template fail, check if the default template has been installed.'))
+        puts(colored.yellow('Install default template fail, check if the Internet works.'))
 
 def install(template):
     load_base()
-    original_path = os.getcwd()
+    force_mkdir(get_path(g.path.templates, template))
     templates = urllib2.urlopen('https://raw.github.com/shunfan/hazel/master/templates.yml').read()
     templates = yaml.load(templates)
     try:
         git_template = templates[template]
         os.chdir(g.path.templates)
         os.system('git clone %s' % git_template)
-        try:
-            for line in fileinput.input(get_path(original_path, 'config.yml', inplace=True):
-                print '%d: %s' % (fileinput.filelineno(), line)
-            puts(colored.green('Successfully configured the template option.'))
-        except:
-            puts(colored.red('Configure the template fail.'))
-        puts(colored.green('Template is installed properly.'))
+        puts(colored.green('Template is installed properly, please change the template name in the general config file manually.'))
     except:
         puts(colored.red('Template %s is not found or installed properly.' % template))
 
