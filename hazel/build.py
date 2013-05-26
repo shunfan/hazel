@@ -32,7 +32,7 @@ def load_jinja():
 
 def reset():
     force_mkdir(g.path.site)
-    force_mkdir(g.path.site_post)
+    os.mkdir(g.path.site_post)
 
 
 def handle_posts():

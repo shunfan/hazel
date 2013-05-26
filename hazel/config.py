@@ -3,7 +3,6 @@ import os
 import yaml
 import shutil
 import urllib2
-import fileinput
 
 from clint.textui import puts, indent, colored
 
@@ -46,6 +45,7 @@ def install(template):
         os.system('git clone %s' % git_template)
         puts(colored.green('Template is installed properly, please change the template name in the general config file manually.'))
     except:
+        shutil.rmtree(get_path(g.path.templates, template))
         puts(colored.red('Template %s is not found or installed properly.' % template))
 
 def init():

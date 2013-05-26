@@ -1,4 +1,5 @@
 build/*
 dist/*
+test_blog/*
 *.pyc
 *.egg-info
