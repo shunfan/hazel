@@ -8,10 +8,6 @@ python:
 
 install:
   - python setup.py install
-  - pip install coveralls
 
 script:
-  - coverage run --source=hazel setup.py nosetests
-
-after_success:
-  - coveralls
+  - python setup.py nosetests
