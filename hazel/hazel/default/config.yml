@@ -1,0 +1,11 @@
+title: My blog
+subtitle: A blog powered by hazel
+domain: blog.example.com
+author: Myself
+email: me@example.com
+template: limestone
+
+#rsync
+host: 12.345.678.999
+user: username
+dest: /path/blog

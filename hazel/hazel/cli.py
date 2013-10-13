@@ -11,9 +11,11 @@ Options: -h, --help
 """
 from docopt import docopt
 
-from hazel.config import install, init
-from hazel.build import new_post, generate
+from hazel.config import init
 from hazel.deploy import rsync
+from hazel.template import install
+from hazel.generate import new_post, generate
+
 
 args = docopt(__doc__)
 
